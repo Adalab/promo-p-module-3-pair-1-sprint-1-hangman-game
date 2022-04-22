@@ -1,18 +1,34 @@
-import '../styles/core/reset.scss';
-import '../styles/App.scss';
-import '../styles/layout/dummy.scss';
-import '../styles/layout/footer.scss';
-import '../styles/layout/form.scss';
-import '../styles/layout/header.scss';
-import '../styles/layout/instructions.scss';
-import '../styles/layout/letters.scss';
-import '../styles/layout/loading.scss';
+import "../styles/core/reset.scss";
+import "../styles/App.scss";
+import "../styles/layout/dummy.scss";
+import "../styles/layout/footer.scss";
+import "../styles/layout/form.scss";
+import "../styles/layout/header.scss";
+import "../styles/layout/instructions.scss";
+import "../styles/layout/letters.scss";
+import "../styles/layout/loading.scss";
+import { useState } from "react";
 
 function App() {
+  const [numberOfError, setNumberOfError] = useState(0);
+  const [lastLetter, setLasLetter] = useState("");
+  const handleInput = (ev) => {
+    const newValue = ev.target.value;
+    if (/^[A-Za-záéíóú]$/.test(newValue)) {
+      setLasLetter(ev.currentTarget.value);
+    }
+  };
+  const handleClickButton = (ev) => {
+    ev.preventDefault();
+    console.log("hola");
+    setNumberOfError(numberOfError + 1);
+    console.log(numberOfError);
+  };
   return (
     <div className="page">
       <header>
         <h1 className="header__title">Juego del ahorcado</h1>
+        <button onClick={handleClickButton}>Incrementar</button>
       </header>
       <main className="main">
         <section>
@@ -46,6 +62,9 @@ function App() {
               Escribe una letra:
             </label>
             <input
+              onChange={handleInput}
+              value={lastLetter}
+              pattern="[a-zA-Z]"
               autoComplete="off"
               className="form__input"
               maxLength="1"
@@ -55,7 +74,8 @@ function App() {
             />
           </form>
         </section>
-        <section className="dummy error-5">
+
+        <section className={`dummy error-${numberOfError}`}>
           <span className="error-13 eye"></span>
           <span className="error-12 eye"></span>
           <span className="error-11 line"></span>
