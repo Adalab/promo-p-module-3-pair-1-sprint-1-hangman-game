@@ -12,17 +12,30 @@ import { useState } from "react";
 function App() {
   const [numberOfError, setNumberOfError] = useState(0);
   const [lastLetter, setLasLetter] = useState("");
+  const [word, setWord] = useState("katakroker");
+  const [userLetters, setuserLetters] = useState([]);
+
   const handleInput = (ev) => {
     const newValue = ev.target.value;
     if (/^[A-Za-záéíóú]$/.test(newValue)) {
-      setLasLetter(ev.currentTarget.value);
+      setLasLetter(newValue);
+      setuserLetters([...userLetters, newValue]);
+    } else {
+      setLasLetter("");
     }
   };
   const handleClickButton = (ev) => {
     ev.preventDefault();
-    console.log("hola");
     setNumberOfError(numberOfError + 1);
-    console.log(numberOfError);
+  };
+
+  const renderSolutionLetters = () => {
+    const wordLetters = word.split("");
+    const script = wordLetters.map(() => {
+      return <li className="letter">_</li>;
+    });
+    console.log(wordLetters);
+    return script;
   };
   return (
     <div className="page">
@@ -34,18 +47,8 @@ function App() {
         <section>
           <div className="solution">
             <h2 className="title">Solución:</h2>
-            <ul className="letters">
-              <li className="letter">k</li>
-              <li className="letter">a</li>
-              <li className="letter"></li>
-              <li className="letter">a</li>
-              <li className="letter">k</li>
-              <li className="letter">r</li>
-              <li className="letter"></li>
-              <li className="letter">k</li>
-              <li className="letter">e</li>
-              <li className="letter">r</li>
-            </ul>
+
+            <ul className="letters"> {renderSolutionLetters()}</ul>
           </div>
           <div className="error">
             <h2 className="title">Letras falladas:</h2>
