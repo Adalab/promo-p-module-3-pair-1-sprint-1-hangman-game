@@ -31,8 +31,12 @@ function App() {
 
   const renderSolutionLetters = () => {
     const wordLetters = word.split("");
-    const script = wordLetters.map(() => {
-      return <li className="letter">_</li>;
+    const script = wordLetters.map((item) => {
+      if (userLetters.includes(item)) {
+        return <li className="letter">{item}</li>;
+      } else {
+        return <li className="letter">_</li>;
+      }
     });
     console.log(wordLetters);
     return script;
