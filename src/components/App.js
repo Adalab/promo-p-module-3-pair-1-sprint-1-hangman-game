@@ -41,6 +41,17 @@ function App() {
     console.log(wordLetters);
     return script;
   };
+
+  const renderErrorLetters = () => {
+    const script = userLetters.map((item) => {
+      if (word.includes(item)) {
+      } else {
+        return <li className="letter">{item}</li>;
+      }
+    });
+    return script;
+  };
+
   return (
     <div className="page">
       <header>
@@ -57,11 +68,13 @@ function App() {
           <div className="error">
             <h2 className="title">Letras falladas:</h2>
             <ul className="letters">
-              <li className="letter">f</li>
+              {" "}
+              {renderErrorLetters()}
+              {/*     <li className="letter">f</li>
               <li className="letter">q</li>
               <li className="letter">h</li>
               <li className="letter">p</li>
-              <li className="letter">x</li>
+              <li className="letter">x</li> */}
             </ul>
           </div>
           <form className="form">
